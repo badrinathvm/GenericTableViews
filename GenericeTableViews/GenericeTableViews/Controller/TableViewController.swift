@@ -30,21 +30,20 @@ class TableViewController<Items>: UITableViewController {
         return items.count
     }
     
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100.0
-//    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.row]
+        
+        //Get the descriptor from the item.
         let descriptor = cellDescriptor(item)
         
+        //No need to register the cell if already register for previous cell, so checking the set before doing it.
         if !reuseIdentifiers.contains(descriptor.reuseIdentifier) {
             tableView.register(descriptor.cellClass, forCellReuseIdentifier: descriptor.reuseIdentifier)
             reuseIdentifiers.insert(descriptor.reuseIdentifier)
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: descriptor.reuseIdentifier, for: indexPath)
-         descriptor.configure(cell)
+        descriptor.configure(cell)
         return cell
     }
     
@@ -57,6 +56,10 @@ class TableViewController<Items>: UITableViewController {
 
 
 //1. Which type of cell Class
+//2. ReuseIdentifier
+//3. type erasure to call confiog again.
+
+//More Explanation : https://talk.objc.io/episodes/S01E26-generic-table-view-controllers-part-2
 
 struct CellDescriptor {
     typealias Handler = (UITableViewCell) -> ()

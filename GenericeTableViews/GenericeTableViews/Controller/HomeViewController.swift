@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
             CellTypes.image(Image(title: "Second Image"))
         ]
         
-        let tableViewController = TableViewController(items: model, cellDescriptor: {$0.cellDescriptor})
+        let tableViewController = TableViewController(items: model, cellDescriptor: {$0.detectCellType})
         add(tableViewController)
     }
 
@@ -50,15 +50,17 @@ extension Image {
     }
 }
 
+//Create a enum for different types of Cells.
 enum CellTypes {
    case text(Text)
    case image(Image)
 }
 
+//write an extension and return the correct cellDescriptior having reuseidentifier and configure the cell.
 extension CellTypes {
-    var cellDescriptor:CellDescriptor {
+    var detectCellType:CellDescriptor {
         switch self {
-        case .text(let model):            
+        case .text(let model):
             return CellDescriptor(reuseIdentifier: "textCell", configure: { (cell: TextCell) in
                 cell.titleLabel.text = model.mainTitle
                 cell.subtitleLabel.text = model.subtitle
