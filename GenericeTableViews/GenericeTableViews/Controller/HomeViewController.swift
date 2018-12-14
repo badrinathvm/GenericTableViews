@@ -9,6 +9,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    
+    var tableObserVations = TableObservations()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,16 @@ class HomeViewController: UIViewController {
         
         let tableViewController = TableViewController(items: model, cellDescriptor: {$0.detectCellType})
         add(tableViewController)
+        
+        tableObserVations.addObserver("hello") { (name, result) in
+            print("YES")
+        }
+        
+        tableObserVations.addObserver("hello") { (name, result) in
+            print("NO")
+        }
+        
+        tableObserVations.post(name: "hello")
     }
 
 }
