@@ -28,10 +28,10 @@ class TableObservations {
     }
     
     //As part of post we need to pass the closure.
-    func post(name: String, using block: Observator? = nil) {
+    func post(name: String, using block: Any) {
         let values = observations[name]
         values?.forEach {
-            $0(name, block as Any)
+            $0(name, block)
         }
     }
     

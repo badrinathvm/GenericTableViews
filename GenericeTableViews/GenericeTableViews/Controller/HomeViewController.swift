@@ -28,16 +28,15 @@ class HomeViewController: UIViewController {
         add(tableViewController)
         
         tableObserVations.addObserver("hello") { (name, result) in
-            print("YES")
+            print(result as! String )
         }
         
         tableObserVations.addObserver("hello") { (name, result) in
-            print("NO")
+            print(result as! String)
         }
         
-        tableObserVations.post(name: "hello")
+        tableObserVations.post(name: "hello", using: "YES")
     }
-
 }
 
 struct Text {
